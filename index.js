@@ -13,7 +13,7 @@ module.exports = (packageRootDir, options = {}) => {
 
     const pathToTsConfig = path.join(packageRootDir, 'tsconfig.json')
     const pathToTypescript = require.resolve('typescript', {
-        paths: [packageRootDir]
+        paths: [packageRootDir],
     })
     if (!pathToTypescript) throw new Error('typescript module is not found')
     const ts = require(pathToTypescript)
@@ -23,19 +23,25 @@ module.exports = (packageRootDir, options = {}) => {
     if (!tsconfigOutDir) throw new Error('outDir is not defined')
     const tsconfigOutDirAbs = path.join(packageRootDir, tsconfigOutDir)
     const isOutDirExists = fs.existsSync(tsconfigOutDirAbs)
-    const rebuildPackage = useRebuildPackage({ tsconfigOutDirAbs, packageRootDir, pathToTsConfig, isAutoIncrementVersion })
+    const rebuildPackage = useRebuildPackage({
+        tsconfigOutDirAbs,
+        packageRootDir,
+        pathToTsConfig,
+        isAutoIncrementVersion,
+    })
     if (!isOutDirExists) {
         rebuildPackage()
     } else {
         const tsConfigRootDir = tsconfig.config.compilerOptions.rootDir
         if (!tsConfigRootDir) throw new Error('rootDir is not defined')
         const tsConfigRootDirAbs = path.join(packageRootDir, tsConfigRootDir)
-        checkIsNeedRebuildLevel2({ rebuildPackage, tsconfigOutDirAbs, tsConfigRootDirAbs, rebuildDiffTimeMs })
+        checkIsNeedRebuildLevel2({
+            rebuildPackage,
+            tsconfigOutDirAbs,
+            tsConfigRootDirAbs,
+            rebuildDiffTimeMs,
+        })
     }
     const transpiledModule = require(tsconfigOutDirAbs)
     return transpiledModule
 }
-
-
-
-
