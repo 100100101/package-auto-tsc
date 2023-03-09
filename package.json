@@ -1,6 +1,6 @@
 {
     "name": "package-auto-tsc",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Auto typescript compile package if the last modified ts file is newer than the newest out js file, and optional auto increment version",
     "main": "index.js",
     "keywords": [],
