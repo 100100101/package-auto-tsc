@@ -54,7 +54,7 @@ module.exports = (packageRootDir, options = {}) => {
     if (!isOutDirExists) {
         rebuildPackage()
     } else {
-        const tsConfigRootDir = tsconfig.config.compilerOptions.rootDir
+        const tsConfigRootDir = tsconfig.compilerOptions.rootDir
         if (!tsConfigRootDir) throw new Error('rootDir is not defined')
         const tsConfigRootDirAbs = path.join(packageRootDir, tsConfigRootDir)
         checkIsNeedRebuildLevel2({
